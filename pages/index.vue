@@ -51,31 +51,7 @@
 		</v-row>
 
 		<!-- Paginación -->
-		<v-row class="post-pagination">
-			<v-col
-				class="text-right"
-				cols="12"
-			>
-				<v-btn>
-					<v-icon
-						small
-						left
-					>
-						mdi-arrow-left
-					</v-icon>
-					Previous
-				</v-btn>
-				<v-btn>
-					Next
-					<v-icon
-						small
-						right
-					>
-						mdi-arrow-right
-					</v-icon>
-				</v-btn>
-			</v-col>
-		</v-row>
+		<The-Pagination />
 	</v-container>
 </template>
 
