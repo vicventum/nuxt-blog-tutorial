@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<h1>Welcome to my blog</h1>
+		<p />
 	</div>
 </template>
 
@@ -9,9 +10,4 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-div {
-	h1 {
-		color: aqua !important;
-	}
-}
 </style>
