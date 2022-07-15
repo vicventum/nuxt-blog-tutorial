@@ -100,6 +100,19 @@ export default {
 		category: 'all',
 		categoryList: ['all', 'codding', 'youtube']
 	}),
+	computed: {
+		// Devuelve la palabra de la búsqueda
+		searchQuery() {
+			return this.$store.getters.GET_QUERY
+		}
+	},
+	watch: {
+		// Llama de nuevo a todos los posts pero ahora con la búsqueda como parámetro
+		searchQuery(newValue) {
+			this.page = 1 // ? Para devuelva a la primera página cada vez se agregue algo en el buscador de post
+			this.fetchPosts(newValue)
+		}
+	},
 	mounted() {
 		console.log('Posts en la vista de inicio', this.posts)
 	},
@@ -107,18 +120,19 @@ export default {
 		// Avanza a la siguiente página de posts
 		async fetchNext() {
 			this.page += 1
-			await this.fetchedPosts()
+			await this.fetchPosts()
 		},
 		// Retrocede a la anterior página de posts
 		async fetchPrevious() {
 			this.page -= 1
-			await this.fetchedPosts()
+			await this.fetchPosts()
 		},
 		// Obtiene todos los posts
-		async fetchedPosts() {
+		async fetchPosts(query = '') {
 			const fetchedPosts = await this.$content()
 				.limit(this.limit)
 				.sortBy('createdAt', 'desc')
+				.search(query) //? Busca los post que contengan una parte de la cadena. Si `query` es una cadena vacía, devolverá todos los posts
 				.skip((this.limit - 1) * (this.page - 1))
 				.fetch()
 
