@@ -25,7 +25,7 @@
 			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse ipsam, numquam rem tempore reprehenderit ex voluptate iure iusto, voluptatem nam, perferendis eveniet sapiente est aspernatur placeat. Quaerat odit itaque exercitationem!</p>
 		</section>
 
-		<The-Pagination class="d-flex justify-space-between" />
+		<The-Pagination class="d-flex justify-space-between mt-12" />
 	</v-container>
 </template>
 
