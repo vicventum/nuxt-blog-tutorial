@@ -6,15 +6,14 @@ export default {
 
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
-		titleTemplate: '%s - nuxt-blog-advance---kaizen-codes',
-		title: 'nuxt-blog-advance---kaizen-codes',
+		title: 'Vicventum Blog 👾',
 		htmlAttrs: {
 			lang: 'en'
 		},
 		meta: [
 			{ charset: 'utf-8' },
 			{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-			{ hid: 'description', name: 'description', content: '' },
+			{ hid: 'description', name: 'description', content: 'Writing about Nuxt.js' },
 			{ name: 'format-detection', content: 'telephone=no' }
 		],
 		link: [

@@ -48,6 +48,38 @@ export default {
 			.catch(() => error({ status: 404, message: 'Oops, looks like thah does not exist...' }))
 
 		return { post, prev, next }
+	},
+	// Agrega los metas para el SEO
+	head() {
+		return {
+			title: this.post.title,
+			description: this.post.description,
+			meta: [
+				{
+					hid: 'description',
+					name: 'description',
+					content: this.post.description,
+				},
+				// Open Graph
+				{ hid: 'og:title', property: 'og:title', content: this.post.title },
+				{
+					hid: 'og:description',
+					property: 'og:description',
+					content: this.post.description,
+				},
+				// Twitter Card
+				{
+					hid: 'twitter:title',
+					name: 'twitter:title',
+					content: this.post.title,
+				},
+				{
+					hid: 'twitter:description',
+					name: 'twitter:description',
+					content: this.post.description,
+				},
+			]
+		}
 	}
 }
 </script>
