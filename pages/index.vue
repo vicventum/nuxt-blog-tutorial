@@ -8,11 +8,25 @@
 			</h2>
 		</div>
 
-		<v-row class="posts-container">
+		<v-row v-if="!posts.length">
+			<v-col cols="12">
+				<p>
+					No posts found, yet. <span class="emoji">
+						😁
+					</span>
+				</p>
+			</v-col>
+		</v-row>
+
+		<v-row
+			v-else
+			class="posts-container"
+		>
 			<!-- Filter -->
 			<v-col cols="12">
 				<div class="filter">
 					<v-select
+						v-if="categoryList.length"
 						v-model="category"
 						:items="categoryList"
 						label="Categories"
@@ -63,6 +77,7 @@
 
 		<!-- Paginación -->
 		<The-Pagination
+			v-if="posts.length"
 			:is-first-page="page === 1"
 			:is-last-page="!nextPage"
 			@click-next-button="fetchNext"
@@ -100,6 +115,17 @@ export default {
 		category: 'all',
 		categoryList: ['all', 'codding', 'youtube']
 	}),
+	// Obtene las categorías de los posts
+	async fetch() {
+		const categories = await this.$content()
+			.only(['category'])
+			.fetch()
+
+		// ? Removiendo las categorías repetidas
+		const payload = Array.from(new Set(categories.map(c => c.category)))
+		this.categoryList = ['all', ...payload]
+	},
+
 	computed: {
 		// Devuelve la palabra de la búsqueda
 		searchQuery() {
@@ -108,9 +134,14 @@ export default {
 	},
 	watch: {
 		// Llama de nuevo a todos los posts pero ahora con la búsqueda como parámetro
-		searchQuery(newValue) {
+		async searchQuery(newValue) {
 			this.page = 1 // ? Para devuelva a la primera página cada vez se agregue algo en el buscador de post
-			this.fetchPosts(newValue)
+			await this.fetchPosts(newValue)
+		},
+		// Llama de nuevo a todos los posts si se cambia la categoría
+		async category() {
+			this.page = 1 // ? Para devuelva a la primera página cada vez se selecciona una categoría
+			await this.fetchPosts(this.searchQuery)
 		}
 	},
 	mounted() {
@@ -129,9 +160,16 @@ export default {
 		},
 		// Obtiene todos los posts
 		async fetchPosts(query = '') {
-			const fetchedPosts = await this.$content()
+			let baseFetch = await this.$content()
 				.limit(this.limit)
 				.sortBy('createdAt', 'desc')
+
+			// En el caso de que se haya elido una categoría, se filtran los post que solo tengan esas categorías
+			if (this.category !== 'all') {
+				baseFetch = baseFetch.where({ category: this.category })
+			}
+
+			const fetchedPosts = await baseFetch
 				.search(query) //? Busca los post que contengan una parte de la cadena. Si `query` es una cadena vacía, devolverá todos los posts
 				.skip((this.limit - 1) * (this.page - 1))
 				.fetch()

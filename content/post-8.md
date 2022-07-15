@@ -1,7 +1,7 @@
 ---
 title: Post 8
 description: Take your blogging to next level with this tutorial.
-category: coding
+category: work
 # tags: 
 # 	- Nuxt.js
 # 	- JavaScript
