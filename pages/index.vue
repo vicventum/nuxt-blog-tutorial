@@ -34,6 +34,7 @@
 					<v-card-title primary-title>
 						{{ post.title }}
 					</v-card-title>
+
 					<v-card-text>
 						<!-- //? Con `body: page.excerpt` se inserta el extracto del post en el extracto del preview del post -->
 						<nuxt-content :document="{body: post.excerpt}" />
@@ -52,7 +53,12 @@
 		</v-row>
 
 		<!-- Paginación -->
-		<The-Pagination />
+		<The-Pagination
+			:first-page="page === 1"
+			:last-page="!nextPage"
+			@click-next-button="fetchNext"
+			@click-prev-button="fetchPrevious"
+		/>
 	</v-container>
 </template>
 
@@ -86,7 +92,32 @@ export default {
 		categoryList: ['all', 'codding', 'youtube']
 	}),
 	mounted() {
-		console.log(this.posts)
+		console.log('Posts en la vista de inicio', this.posts)
+	},
+	methods: {
+		// Avanza a la siguiente página de posts
+		async fetchNext() {
+			this.page += 1
+			await this.fetchedPosts()
+		},
+		// Retrocede a la anterior página de posts
+		async fetchPrevious() {
+			this.page -= 1
+			await this.fetchedPosts()
+		},
+		// Obtiene todos los posts
+		async fetchedPosts() {
+			const fetchedPosts = await this.$content()
+				.limit(this.limit)
+				.sortBy('createdAt', 'desc')
+				.skip((this.limit - 1) * (this.page - 1))
+				.fetch()
+
+			this.nextPage = fetchedPosts.length === this.limit
+			const posts = this.nextPage ? fetchedPosts.slice(0, -1) : fetchedPosts
+
+			this.posts = posts
+		}
 	},
 }
 </script>

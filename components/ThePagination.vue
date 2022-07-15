@@ -1,11 +1,13 @@
 <template>
 	<section
-		class="post-pagination text-right"
+		class="post-pagination text-right mt-6"
 		v-bind="$attrs"
 	>
 		<v-btn
 			color="success"
 			plain
+			:disabled="firstPage"
+			@click="$emit('click-next-button')"
 		>
 			<v-icon
 				small
@@ -18,6 +20,8 @@
 		<v-btn
 			color="success"
 			plain
+			:disabled="lastPage"
+			@click="$emit('click-prev-button')"
 		>
 			Next
 			<v-icon
@@ -32,8 +36,18 @@
 
 <script>
 export default {
+	props: {
+		firstPage: {
+			type: Boolean,
+			default: false
+		},
+		lastPage: {
+			type: Boolean,
+			default: false
+		},
+	},
 	created() {
-		console.log(this.$attrs)
+		console.log('this.$attrs', this.$attrs)
 	},
 }
 </script>

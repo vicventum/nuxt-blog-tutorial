@@ -2,10 +2,10 @@
 title: Getting started with Nuxt.js Content
 description: Take your blogging to next level with this tutorial.
 category: coding
-tags: 
-	- Nuxt.js
-	- JavaScript
-	- Tutorial
+# tags: 
+# 	- Nuxt.js
+# 	- JavaScript
+# 	- Tutorial
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi eius commodi debitis possimus hic ratione fugiat quibusdam asperiores nisi animi ipsam ea exercitationem magni quaerat quae, repellendus voluptates harum laudantium sapiente minima, ut doloribus, quam nihil doloremque. Perferendis adipisci suscipit labore ipsa, dolorum ex officia quae rem maiores eveniet vel.

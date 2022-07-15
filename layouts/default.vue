@@ -13,12 +13,12 @@
 						<Nuxt />
 					</v-col>
 					<!-- Ads / Side content -->
-					<v-cols
+					<v-col
 						cols="12"
 						md="2"
 					>
 						<!--  -->
-					</v-cols>
+					</v-col>
 				</v-row>
 			</v-container>
 		</v-main>
