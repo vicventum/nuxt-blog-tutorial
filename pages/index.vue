@@ -63,8 +63,8 @@
 
 		<!-- Paginación -->
 		<The-Pagination
-			:first-page="page === 1"
-			:last-page="!nextPage"
+			:is-first-page="page === 1"
+			:is-last-page="!nextPage"
 			@click-next-button="fetchNext"
 			@click-prev-button="fetchPrevious"
 		/>

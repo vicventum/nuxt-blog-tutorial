@@ -6,7 +6,7 @@
 		<v-btn
 			color="success"
 			plain
-			:disabled="firstPage"
+			:disabled="isFirstPage"
 			@click="$emit('click-next-button')"
 		>
 			<v-icon
@@ -20,7 +20,7 @@
 		<v-btn
 			color="success"
 			plain
-			:disabled="lastPage"
+			:disabled="isLastPage"
 			@click="$emit('click-prev-button')"
 		>
 			Next
@@ -37,11 +37,11 @@
 <script>
 export default {
 	props: {
-		firstPage: {
+		isFirstPage: {
 			type: Boolean,
 			default: false
 		},
-		lastPage: {
+		isLastPage: {
 			type: Boolean,
 			default: false
 		},
