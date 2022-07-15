@@ -6,7 +6,7 @@
 				hide-details="auto"
 				placeholder="Search for a post"
 				prepend-icon="mdi-magnify"
-				:append-icon="search.length && 'mdi-close'"
+				:append-icon="search.length ? 'mdi-close' : ''"
 				dense
 				outlined
 				@click:append="clearSearch"

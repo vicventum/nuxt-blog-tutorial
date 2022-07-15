@@ -25,23 +25,24 @@
 			</v-col>
 			<!-- BLOGS SECTION -->
 			<v-col
-				v-for="post in 4"
-				:key="post.id"
+				v-for="post in posts"
+				:key="post.slug"
 				cols="12"
 				md="6"
 			>
 				<v-card elevation="1">
 					<v-card-title primary-title>
-						My frist blog
+						{{ post.title }}
 					</v-card-title>
 					<v-card-text>
-						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium deleniti fugiat, illum suscipit ipsum qui sint consectetur quasi in, perspiciatis eos, at quibusdam corporis illo earum blanditiis aliquam.
+						<!-- //? Con `body: page.excerpt` se inserta el extracto del post en el extracto del preview del post -->
+						<nuxt-content :document="{body: post.excerpt}" />
 					</v-card-text>
 					<v-card-actions>
 						<v-btn
 							text
 							color="success"
-							to="/1"
+							:to="post.path"
 						>
 							Read More
 						</v-btn>
@@ -57,10 +58,36 @@
 
 <script>
 export default {
+	// Obteniendo la data de los posts
+	async asyncData({ $content }) {
+		// Limitando la cantidad de post que obtendremos
+
+		const limit = 5
+		const page = 1
+		// Obteniendo los posts
+		const fetchedPosts = await $content()
+			.limit(limit)
+			.sortBy('createdAt', 'desc')
+			.skip((limit - 1) * (page - 1))
+			.fetch()
+
+		const nextPage = fetchedPosts.length === limit
+		const posts = nextPage ? fetchedPosts.slice(0, -1) : fetchedPosts
+
+		return {
+			page,
+			limit,
+			posts,
+			nextPage
+		}
+	},
 	data: () => ({
 		category: 'all',
 		categoryList: ['all', 'codding', 'youtube']
-	})
+	}),
+	mounted() {
+		console.log(this.posts)
+	},
 }
 </script>
 

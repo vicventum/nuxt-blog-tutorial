@@ -6,11 +6,17 @@
 		<v-main>
 			<v-container>
 				<v-row>
-					<v-cols cols="12" md="10">
+					<v-col
+						cols="12"
+						md="10"
+					>
 						<Nuxt />
-					</v-cols>
+					</v-col>
 					<!-- Ads / Side content -->
-					<v-cols cols="12" md="2">
+					<v-cols
+						cols="12"
+						md="2"
+					>
 						<!--  -->
 					</v-cols>
 				</v-row>
