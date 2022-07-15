@@ -34,7 +34,16 @@
 					<v-card-title primary-title>
 						{{ post.title }}
 					</v-card-title>
-
+					<!-- //? Formatea la fecha y hora del post -->
+					<v-card-subtitle>
+						{{
+							new Intl.DateTimeFormat('es-ES', {
+								dateStyle: 'short',
+								timeStyle: 'medium',
+								hour12: true,
+							}).format(new Date(post.createdAt))
+						}}
+					</v-card-subtitle>
 					<v-card-text>
 						<!-- //? Con `body: page.excerpt` se inserta el extracto del post en el extracto del preview del post -->
 						<nuxt-content :document="{body: post.excerpt}" />
